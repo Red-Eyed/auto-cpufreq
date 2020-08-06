@@ -6,7 +6,7 @@
 
 # core import
 import sys
-from subprocess import call
+from subprocess import call, run
 
 sys.path.append('../')
 from source.core import *
@@ -30,7 +30,7 @@ def main(monitor, live, daemon, install, log, debug):
         print("\nExample usage:\nauto-cpufreq --monitor")
         print("\n-----\n")
 
-        s.call(["auto-cpufreq", "--help"])
+        call(["auto-cpufreq", "--help"])
         footer()
     else:
         # Important: order does matter
@@ -90,8 +90,8 @@ def main(monitor, live, daemon, install, log, debug):
                 root_check()
                 running_daemon()
                 gov_check()
-                s.run("snapctl set daemon=enabled", shell=True)
-                s.run("snapctl start --enable auto-cpufreq", shell=True)
+                run("snapctl set daemon=enabled", shell=True)
+                run("snapctl start --enable auto-cpufreq", shell=True)
                 deploy_complete_msg()
             else:
                 root_check()
@@ -102,8 +102,8 @@ def main(monitor, live, daemon, install, log, debug):
         elif remove:
             if os.getenv('PKG_MARKER') == "SNAP":
                 root_check()
-                s.run("snapctl set daemon=disabled", shell=True)
-                s.run("snapctl stop --disable auto-cpufreq", shell=True)
+                run("snapctl set daemon=disabled", shell=True)
+                run("snapctl stop --disable auto-cpufreq", shell=True)
                 auto_cpufreq_log_file.unlink(missing_ok=True)
                 remove_complete_msg()
             else:
