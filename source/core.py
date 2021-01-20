@@ -504,6 +504,9 @@ def sysinfo():
             elif "k10temp" in core_temp:
                 # https://www.kernel.org/doc/Documentation/hwmon/k10temp
                 temp = core_temp['k10temp'][0].current
+            elif "zenpower" in core_temp:
+                # https://github.com/AdnanHodzic/auto-cpufreq/issues/145#issuecomment-763294009
+                temp = core_temp['zenpower'][0].current
             elif "acpitz" in core_temp:
                 temp = core_temp['acpitz'][0].current
         except:
